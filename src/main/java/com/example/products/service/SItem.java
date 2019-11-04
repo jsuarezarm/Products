@@ -64,4 +64,14 @@ public class SItem {
         }
     }
 
+    public boolean delete(long code) {
+        try {
+            Item item = rItem.findByCode(code);
+            rItem.delete(item);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+    }
+
 }

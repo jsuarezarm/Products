@@ -41,9 +41,14 @@ public class CItem {
         return sItem.edit(code, editedItem);
     }
 
-    @PostMapping("item/{code}/deactivate")
+    @PostMapping("/item/{code}/deactivate")
     public boolean deactivate(@PathVariable("code") long code, @RequestBody @Valid String deactivationReason) {
         return sItem.deactivate(code, deactivationReason);
+    }
+
+    @DeleteMapping("/item/{code}")
+    public boolean delete(@PathVariable("code") long code) {
+        return sItem.delete(code);
     }
 
 }

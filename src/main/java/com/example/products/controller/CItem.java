@@ -24,7 +24,7 @@ public class CItem {
     }
 
     // List all items
-    @GetMapping("/items")
+    @GetMapping("/item")
     public List<MItem> getItems() {
         return sItem.getItems();
     }

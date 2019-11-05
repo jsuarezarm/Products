@@ -6,18 +6,18 @@ import com.example.products.model.MUser;
 import com.example.products.repository.RUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.authority.SimpleGrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service("SUser")
-public class SUser {
+public class SUser implements UserDetailsService {
 
     @Autowired
     @Qualifier("RUser")
@@ -27,20 +27,20 @@ public class SUser {
     @Qualifier("converter")
     private Converter converter;
 
-//    @Override
-//    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-//        User user = rUser.findByUsername(s);
-//        return new org.springframework.security.core.userdetails.User(user.getUsername(), "{noop}"+user.getPassword(), createGrantedAuthorities());
-//    }
-//
-//    protected List<GrantedAuthority> createGrantedAuthorities() {
-//        String[] roles = {"USER"};
-//
-//        List<GrantedAuthority> authorities = new ArrayList<>();
-//        authorities.add(new SimpleGrantedAuthority(roles[0]));
-//
-//        return authorities;
-//    }
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        User user = rUser.findByUsername(s);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), "{noop}"+user.getPassword(), createGrantedAuthorities());
+    }
+
+    protected List<GrantedAuthority> createGrantedAuthorities() {
+        String[] roles = {"USER"};
+
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(roles[0]));
+
+        return authorities;
+    }
 
     public boolean create(User user) {
         try {

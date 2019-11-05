@@ -31,7 +31,7 @@ public class SItem {
     }
 
     public List<MItem> getItems() {
-        return converter.convertList(rItem.findAll());
+        return converter.convertItemList(rItem.findAll());
     }
 
     public MItem getItem(long code) {

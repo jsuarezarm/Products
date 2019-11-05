@@ -1,26 +1,22 @@
-package com.example.products.entity;
+package com.example.products.model;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import com.example.products.entity.User;
 
-@Table(name="users")
-@Entity
-public class Users implements Serializable {
+public class MUser {
 
-    @GeneratedValue
-    @Id
-    @Column(name="id")
     private long id;
-
-    @Column(name="username")
     private String username;
-
-    @Column(name="password")
     private String password;
 
-    public Users() {}
+    public MUser() {}
 
-    public Users(long id, String username, String password) {
+    public MUser(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+    }
+
+    public MUser(long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -49,4 +45,5 @@ public class Users implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

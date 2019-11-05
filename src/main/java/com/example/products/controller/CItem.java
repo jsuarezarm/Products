@@ -15,7 +15,7 @@ public class CItem {
 
     @Autowired
     @Qualifier("SItem")
-    SItem sItem;
+    private SItem sItem;
 
     // Add item
     @PutMapping("/item")

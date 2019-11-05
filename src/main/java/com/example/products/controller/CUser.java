@@ -17,26 +17,19 @@ public class CUser {
     @Qualifier("SUser")
     private SUser sUser;
 
-//    @PutMapping("/user")
-//    public boolean add(@RequestBody @Valid User user) {
-//        return sUser.create(user);
-//    }
-//
+    @PutMapping("/user")
+    public boolean add(@RequestBody @Valid User user) {
+        return sUser.create(user);
+    }
+
     @DeleteMapping("/user/{id}")
     public boolean delete(@PathVariable("id") long id) {
-//        return sUser.delete(id);
-        System.out.println("---------- prueba -----------");
-        return true;
+        return sUser.delete(id);
     }
 
     @GetMapping("/user")
     public List<MUser> getItems() {
         return sUser.getUsers();
     }
-
-//    @GetMapping("/user/{id}")
-//    public void prueba() {
-//        System.out.println("---------- prueba -----------");
-//    }
 
 }

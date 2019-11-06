@@ -18,35 +18,35 @@ public class CItem {
     private SItem sItem;
 
     // Add item
-    @PutMapping("/item")
+    @PutMapping("api/item")
     public boolean add(@RequestBody @Valid Item item) {
         return sItem.create(item);
     }
 
     // List all items
-    @GetMapping("/item")
+    @GetMapping("api/item")
     public List<MItem> getItems() {
         return sItem.getItems();
     }
 
     // List item by code
-    @GetMapping("/item/{code}")
+    @GetMapping("api/item/{code}")
     public MItem getItem(@PathVariable("code") long code) {
         return sItem.getItem(code);
     }
 
     // Edit item
-    @PostMapping("/item/{code}/edit")
+    @PostMapping("api/item/{code}/edit")
     public boolean edit(@PathVariable("code") long code, @RequestBody @Valid Item editedItem) {
         return sItem.edit(code, editedItem);
     }
 
-    @PostMapping("/item/{code}/deactivate")
+    @PostMapping("api/item/{code}/deactivate")
     public boolean deactivate(@PathVariable("code") long code, @RequestBody @Valid String deactivationReason) {
         return sItem.deactivate(code, deactivationReason);
     }
 
-    @DeleteMapping("/item/{code}")
+    @DeleteMapping("api/item/{code}")
     public boolean delete(@PathVariable("code") long code) {
         return sItem.delete(code);
     }

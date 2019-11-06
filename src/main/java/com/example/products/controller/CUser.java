@@ -17,17 +17,17 @@ public class CUser {
     @Qualifier("SUser")
     private SUser sUser;
 
-    @PutMapping("/user")
+    @PutMapping("api/user")
     public boolean add(@RequestBody @Valid User user) {
         return sUser.create(user);
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("api/user/{id}")
     public boolean delete(@PathVariable("id") long id) {
         return sUser.delete(id);
     }
 
-    @GetMapping("/user")
+    @GetMapping("api/user")
     public List<MUser> getItems() {
         return sUser.getUsers();
     }

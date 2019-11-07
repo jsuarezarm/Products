@@ -34,11 +34,13 @@ public class Item implements Serializable {
 
     public Item(){}
 
-    public Item(long code, String description, double price, boolean state) {
+    public Item(long code, String description, double price, boolean state, Date creationDate, long creator) {
         this.code = code;
         this.description = description;
         this.price = price;
         this.state = state;
+        this.creationDate = creationDate;
+        this.creator = creator;
     }
 
     public long getCode() {
@@ -71,5 +73,21 @@ public class Item implements Serializable {
 
     public void setState(boolean state) {
         this.state = state;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public long getCreator() {
+        return creator;
+    }
+
+    public void setCreator(long creator) {
+        this.creator = creator;
     }
 }

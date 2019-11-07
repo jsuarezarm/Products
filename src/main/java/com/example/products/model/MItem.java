@@ -2,12 +2,16 @@ package com.example.products.model;
 
 import com.example.products.entity.Item;
 
+import java.sql.Date;
+
 public class MItem {
 
     private long code;
     private String description;
     private double price;
     private boolean state;
+    private Date creationDate;
+    private long creator;
 
     public MItem(){}
 
@@ -16,13 +20,17 @@ public class MItem {
         this.description = item.getDescription();
         this.price = item.getPrice();
         this.state = item.getState();
+        this.creationDate = item.getCreationDate();
+        this.creator = item.getCreator();
     }
 
-    public MItem(long code, String description, double price, boolean state) {
+    public MItem(long code, String description, double price, boolean state, Date creationDate, long creator) {
         this.code = code;
         this.description = description;
         this.price = price;
         this.state = state;
+        this.creationDate = creationDate;
+        this.creator = creator;
     }
 
     public long getCode() {
@@ -57,6 +65,19 @@ public class MItem {
         this.state = state;
     }
 
+    public Date getCreationDate() {
+        return creationDate;
+    }
 
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
+    public long getCreator() {
+        return creator;
+    }
+
+    public void setCreator(long creator) {
+        this.creator = creator;
+    }
 }

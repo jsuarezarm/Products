@@ -2,12 +2,18 @@ package com.example.products.service;
 
 import com.example.products.converter.Converter;
 import com.example.products.entity.Item;
+import com.example.products.entity.User;
 import com.example.products.model.MItem;
 import com.example.products.repository.RItem;
+import com.example.products.repository.RUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 @Service("SItem")
@@ -21,8 +27,26 @@ public class SItem {
     @Qualifier("RItem")
     private RItem rItem;
 
+//    @Autowired
+//    @Qualifier("RUser")
+//    private RUser rUser;
+
     public boolean create(Item item) {
         try {
+            // Set creation date
+            item.setCreationDate(new Date(Calendar.getInstance().getTime().getTime()));
+
+//            // Set creator
+//            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//            String username;
+//            if (principal instanceof UserDetails) {
+//                username = ((UserDetails)principal).getUsername();
+//            } else {
+//                username = principal.toString();
+//            }
+//            User user = rUser.findByUsername(username);
+//            item.setCreator(user.getId());
+
             rItem.save(item);
             return true;
         } catch(Exception e) {

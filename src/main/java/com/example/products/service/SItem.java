@@ -27,25 +27,28 @@ public class SItem {
     @Qualifier("RItem")
     private RItem rItem;
 
-//    @Autowired
-//    @Qualifier("RUser")
-//    private RUser rUser;
+    @Autowired
+    @Qualifier("RUser")
+    private RUser rUser;
 
     public boolean create(Item item) {
         try {
             // Set creation date
             item.setCreationDate(new Date(Calendar.getInstance().getTime().getTime()));
 
-//            // Set creator
-//            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//            String username;
-//            if (principal instanceof UserDetails) {
-//                username = ((UserDetails)principal).getUsername();
-//            } else {
-//                username = principal.toString();
-//            }
-//            User user = rUser.findByUsername(username);
-//            item.setCreator(user.getId());
+            // Set Active state
+            item.setState(true);
+
+            // Set creator
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username;
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails)principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            User user = rUser.findByUsername(username);
+            item.setCreator(user.getId());
 
             rItem.save(item);
             return true;

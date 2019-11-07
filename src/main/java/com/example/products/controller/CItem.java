@@ -5,8 +5,11 @@ import com.example.products.model.MItem;
 import com.example.products.service.SItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -22,7 +25,7 @@ public class CItem {
 
     // Add item
     @PostMapping("/api/item")
-    public boolean add(@RequestBody @Valid Item item) {
+    public boolean add(@Valid @RequestBody Item item) {
         return sItem.create(item);
     }
 
@@ -59,6 +62,22 @@ public class CItem {
 
     @GetMapping("/item")
     public ModelAndView getItemListView() {
+        ModelAndView view = new ModelAndView("item-list");
+        view.addObject("products", getItems());
+        return view;
+    }
+
+    @PostMapping("/item")
+    public ModelAndView addItem(Item item) {
+        sItem.create(item);
+        ModelAndView view = new ModelAndView("item-list");
+        view.addObject("products", getItems());
+        return view;
+    }
+
+    @GetMapping("/item/{code}/delete")
+    public ModelAndView deleteItem(@PathVariable("code") long code) {
+        sItem.delete(code);
         ModelAndView view = new ModelAndView("item-list");
         view.addObject("products", getItems());
         return view;

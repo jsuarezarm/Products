@@ -19,7 +19,7 @@ public class CUser {
     private SUser sUser;
 
     @PostMapping("/api/user")
-    public boolean add(@RequestBody @Valid User user) {
+    public boolean add(@Valid User user) {
         return sUser.create(user);
     }
 

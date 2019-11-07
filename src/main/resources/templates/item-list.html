@@ -3,6 +3,7 @@
 <head>
     <title>Products</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a24cc2985e.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -52,8 +53,8 @@
     <div class="row">
         <div class="col-xl-8">
             <div class="row">
-                <div class="col-1"></div>
-                <div class="col-10">
+<!--                <div class="col-1"></div>-->
+                <div class="col-12">
                     <h2 class="row justify-content-center">List of products</h2>
                     <table class="table">
                         <thead>
@@ -66,6 +67,8 @@
                             <th scope="col">Creator</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -76,17 +79,20 @@
                             <td th:text="${item.price}" />
                             <td th:text="${item.creationDate}" />
                             <td th:text="${item.creator}" />
-                            <td>
-                                <form th:action="@{/api/item/{code}(code=${item.code})}" th:method="delete">
-                                    <button class="btn" type="submit">DEL</button>
-                                </form>
-                            </td>
-                            <td></td>
+<!--                            <td>-->
+<!--                                <form th:action="@{/api/item/{code}(code=${item.code})}" th:method="delete">-->
+<!--                                    <button class="btn" type="submit">DEL</button>-->
+<!--                                </form>-->
+<!--                            </td>-->
+                            <td><i class="fas fa-info"></i></td>
+                            <td><i class="fas fa-ban"></i></td>
+                            <td><i class="fas fa-edit"></i></td>
+                            <td><a th:href="@{/item/{code}/delete(code=${item.code})}"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="col-1"></div>
+<!--                <div class="col-1"></div>-->
             </div>
         </div>
         <div class="col-xl-4 border-left">
@@ -94,7 +100,7 @@
                 <div class="col-1"></div>
                 <div class="col-10">
                     <h2 class="row justify-content-center">Add product</h2>
-                    <form th:action="@{/api/item}" method="post" modelAttribute="item">
+                    <form th:action="@{/item}" method="post" modelAttribute="item">
                         <div class="form-group">
                             <label for="item-code">Code</label>
                             <input type="number" class="form-control" id="item-code" name="code" placeholder="Enter code">

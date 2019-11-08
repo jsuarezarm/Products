@@ -2,45 +2,46 @@ package com.example.products.model;
 
 import com.example.products.entity.PriceReduction;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 public class MPriceReduction {
 
-    private long id;
-    private double reducedPrice;
+    private int id;
+    private BigDecimal priceReduction;
     private Date startDate;
     private Date endDate;
 
     public MPriceReduction() {}
 
-    public MPriceReduction(PriceReduction priceReduction) {
-        this.id = priceReduction.getId();
-        this.reducedPrice = priceReduction.getReducedPrice();
-        this.startDate = priceReduction.getStartDate();
-        this.endDate = priceReduction.getEndDate();
-    }
-
-    public MPriceReduction(long id, double reducedPrice, Date startDate, Date endDate) {
+    public MPriceReduction(int id, BigDecimal priceReduction, Date startDate, Date endDate) {
         this.id = id;
-        this.reducedPrice = reducedPrice;
+        this.priceReduction = priceReduction;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public long getId() {
+    public MPriceReduction(PriceReduction priceReduction) {
+        this.id = priceReduction.getId();
+        this.priceReduction = priceReduction.getPriceReduction();
+        this.startDate = priceReduction.getStartDate();
+        this.endDate = priceReduction.getEndDate();
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public double getReducedPrice() {
-        return reducedPrice;
+    public BigDecimal getPriceReduction() {
+        return priceReduction;
     }
 
-    public void setReducedPrice(double reducedPrice) {
-        this.reducedPrice = reducedPrice;
+    public void setPriceReduction(BigDecimal priceReduction) {
+        this.priceReduction = priceReduction;
     }
 
     public Date getStartDate() {

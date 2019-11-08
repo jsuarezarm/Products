@@ -9,6 +9,6 @@ import java.io.Serializable;
 @Repository("RItem")
 public interface RItem extends JpaRepository<Item, Serializable> {
 
-    public abstract Item findByCode(long code);
+    public abstract Item findByCode(int code);
 
 }

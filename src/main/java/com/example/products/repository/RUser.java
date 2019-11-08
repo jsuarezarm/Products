@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Repository("RUser")
 public interface RUser extends JpaRepository<User, Serializable> {
 
-    public abstract User findById(long id);
+    public abstract User findById(int id);
     public abstract User findByUsername(String username);
 
 }

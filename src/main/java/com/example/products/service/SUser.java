@@ -51,7 +51,7 @@ public class SUser implements UserDetailsService {
         }
     }
 
-    public boolean delete(long id) {
+    public boolean delete(int id) {
         try {
             User user = rUser.findById(id);
             rUser.delete(user);

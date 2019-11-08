@@ -1,14 +1,23 @@
 package com.example.products.model;
 
+import com.example.products.entity.Item;
 import com.example.products.entity.Supplier;
+
+import java.util.Set;
 
 public class MSupplier {
 
-    private long id;
+    private int id;
     private String name;
     private String country;
 
     public MSupplier() {}
+
+    public MSupplier(int id, String name, String country) {
+        this.id = id;
+        this.name = name;
+        this.country = country;
+    }
 
     public MSupplier(Supplier supplier) {
         this.id = supplier.getId();
@@ -16,17 +25,11 @@ public class MSupplier {
         this.country = supplier.getCountry();
     }
 
-    public MSupplier(long id, String name, String country) {
-        this.id = id;
-        this.name = name;
-        this.country = country;
-    }
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -45,5 +48,4 @@ public class MSupplier {
     public void setCountry(String country) {
         this.country = country;
     }
-
 }

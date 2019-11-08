@@ -61,11 +61,11 @@ public class SItem {
         return converter.convertItemList(rItem.findAll());
     }
 
-    public MItem getItem(long code) {
+    public MItem getItem(int code) {
         return converter.convertItem(rItem.findByCode(code));
     }
 
-    public boolean edit(long code, Item editedItem) {
+    public boolean edit(int code, Item editedItem) {
         try {
             // Get item unmodified
             Item item = rItem.findByCode(code);
@@ -80,7 +80,7 @@ public class SItem {
         }
     }
 
-    public boolean deactivate(long code, String deactivationReason) {
+    public boolean deactivate(int code, String deactivationReason) {
         try {
             Item item = rItem.findByCode(code);
             item.setState(false);
@@ -91,7 +91,7 @@ public class SItem {
         }
     }
 
-    public boolean delete(long code) {
+    public boolean delete(int code) {
         try {
             Item item = rItem.findByCode(code);
             rItem.delete(item);

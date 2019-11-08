@@ -37,23 +37,23 @@ public class CItem {
 
     // List item by code
     @GetMapping("/api/item/{code}")
-    public MItem getItem(@PathVariable("code") long code) {
+    public MItem getItem(@PathVariable("code") int code) {
         return sItem.getItem(code);
     }
 
     // Edit item
     @PostMapping("/api/item/{code}/edit")
-    public boolean edit(@PathVariable("code") long code, @RequestBody @Valid Item editedItem) {
+    public boolean edit(@PathVariable("code") int code, @RequestBody @Valid Item editedItem) {
         return sItem.edit(code, editedItem);
     }
 
     @PostMapping("/api/item/{code}/deactivate")
-    public boolean deactivate(@PathVariable("code") long code, @RequestBody @Valid String deactivationReason) {
+    public boolean deactivate(@PathVariable("code") int code, @RequestBody @Valid String deactivationReason) {
         return sItem.deactivate(code, deactivationReason);
     }
 
     @DeleteMapping("/api/item/{code}")
-    public boolean delete(@PathVariable("code") long code) {
+    public boolean delete(@PathVariable("code") int code) {
         return sItem.delete(code);
     }
 
@@ -76,7 +76,7 @@ public class CItem {
     }
 
     @GetMapping("/item/{code}/delete")
-    public ModelAndView deleteItem(@PathVariable("code") long code) {
+    public ModelAndView deleteItem(@PathVariable("code") int code) {
         sItem.delete(code);
         ModelAndView view = new ModelAndView("item-list");
         view.addObject("products", getItems());

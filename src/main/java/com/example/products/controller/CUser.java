@@ -24,7 +24,7 @@ public class CUser {
     }
 
     @DeleteMapping("/api/user/{id}")
-    public boolean delete(@PathVariable("id") long id) {
+    public boolean delete(@PathVariable("id") int id) {
         return sUser.delete(id);
     }
 

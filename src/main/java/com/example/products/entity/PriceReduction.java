@@ -2,19 +2,20 @@ package com.example.products.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 @Table(name="price_reduction")
 @Entity
 public class PriceReduction implements Serializable {
 
-    @GeneratedValue
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private long id;
+    private int id;
 
-    @Column(name="reduced_price")
-    private double reducedPrice;
+    @Column(name="price_reduction")
+    private BigDecimal priceReduction;
 
     @Column(name="start_date")
     private Date startDate;
@@ -24,27 +25,27 @@ public class PriceReduction implements Serializable {
 
     public PriceReduction() {}
 
-    public PriceReduction(long id, double reducedPrice, Date startDate, Date endDate) {
+    public PriceReduction(int id, BigDecimal priceReduction, Date startDate, Date endDate) {
         this.id = id;
-        this.reducedPrice = reducedPrice;
+        this.priceReduction = priceReduction;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public double getReducedPrice() {
-        return reducedPrice;
+    public BigDecimal getPriceReduction() {
+        return priceReduction;
     }
 
-    public void setReducedPrice(double reducedPrice) {
-        this.reducedPrice = reducedPrice;
+    public void setPriceReduction(BigDecimal priceReduction) {
+        this.priceReduction = priceReduction;
     }
 
     public Date getStartDate() {

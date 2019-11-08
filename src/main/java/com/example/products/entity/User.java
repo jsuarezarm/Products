@@ -7,10 +7,10 @@ import java.io.Serializable;
 @Entity
 public class User implements Serializable {
 
-    @GeneratedValue
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    private long id;
+    private int id;
 
     @Column(name="username")
     private String username;
@@ -18,19 +18,31 @@ public class User implements Serializable {
     @Column(name="password")
     private String password;
 
+    @Column(name="role_id")
+    private int roleId;
+
+    @ManyToOne()
+    @JoinColumn(name="id", insertable = false, updatable = false)
+    private Role role;
+
+    @OneToOne(targetEntity=ItemDiscontinued.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    private ItemDiscontinued itemDiscontinued = new ItemDiscontinued();
+
     public User() {}
 
-    public User(long id, String username, String password) {
+    public User(int id, String username, String password, int roleId, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.roleId = roleId;
+        this.role = role;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -48,5 +60,21 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

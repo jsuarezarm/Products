@@ -2,52 +2,80 @@ package com.example.products.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Set;
 
 @Table(name="item")
 @Entity
 public class Item implements Serializable {
 
-    @GeneratedValue
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
+    private int id;
+
     @Column(name="code")
-    private long code;
+    private int code;
 
     @Column(name="description")
     private String description;
 
     @Column(name="price")
-    private double price;
+    private BigDecimal price;
 
     @Column(name="state")
     private boolean state;
-
-    // Suppliers
-
-    // Price reductions
 
     @Column(name="creation_date")
     private Date creationDate;
 
     @Column(name="creator")
-    private long creator;
+    private int creator;
+
+    @OneToOne()
+    @JoinColumn(name="id", insertable = false, updatable = false)
+    private ItemDiscontinued itemDiscontinued;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="item_supplier", joinColumns = {@JoinColumn(referencedColumnName ="id")},
+            inverseJoinColumns = {@JoinColumn(referencedColumnName = "id")})
+    private Set<Supplier> supplier;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="item_pricereduction", joinColumns = {@JoinColumn(referencedColumnName ="id")},
+            inverseJoinColumns = {@JoinColumn(referencedColumnName = "id")})
+    private Set<PriceReduction> pricereduction;
 
     public Item(){}
 
-    public Item(long code, String description, double price, boolean state, Date creationDate, long creator) {
+    public Item(int id, int code, String description, BigDecimal price, boolean state, Date creationDate, int creator,
+                ItemDiscontinued itemDiscontinued, Set<Supplier> supplier, Set<PriceReduction> pricereduction) {
+        this.id = id;
         this.code = code;
         this.description = description;
         this.price = price;
         this.state = state;
         this.creationDate = creationDate;
         this.creator = creator;
+        this.itemDiscontinued = itemDiscontinued;
+        this.supplier = supplier;
+        this.pricereduction = pricereduction;
     }
 
-    public long getCode() {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCode() {
         return code;
     }
 
-    public void setCode(long code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
@@ -59,11 +87,11 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -83,11 +111,35 @@ public class Item implements Serializable {
         this.creationDate = creationDate;
     }
 
-    public long getCreator() {
+    public int getCreator() {
         return creator;
     }
 
-    public void setCreator(long creator) {
+    public void setCreator(int creator) {
         this.creator = creator;
+    }
+
+    public ItemDiscontinued getItemDiscontinued() {
+        return itemDiscontinued;
+    }
+
+    public void setItemDiscontinued(ItemDiscontinued itemDiscontinued) {
+        this.itemDiscontinued = itemDiscontinued;
+    }
+
+    public Set<Supplier> getSuppliers() {
+        return supplier;
+    }
+
+    public void setSuppliers(Set<Supplier> supplier) {
+        this.supplier = supplier;
+    }
+
+    public Set<PriceReduction> getPriceReduction() {
+        return pricereduction;
+    }
+
+    public void setPriceReduction(Set<PriceReduction> pricereduction) {
+        this.pricereduction = pricereduction;
     }
 }

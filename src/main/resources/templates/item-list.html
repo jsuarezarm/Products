@@ -80,7 +80,12 @@
                             <td th:text="${item.creationDate}" />
                             <td th:text="${item.user.username}" />
                             <td><a th:href="@{/item/{id}(id=${item.id})}"><i class="fas fa-info"></i></a></td>
-                            <td><i class="fas fa-ban"></i></td>
+                            <td th:if="${item.getState()}">
+                                <a th:href="@{/item/{id}/deactivate(id=${item.id})}"><i class="fas fa-ban"></i></a>
+                            </td>
+                            <td th:unless="${item.getState()}">
+                                <a th:href="@{/item/{id}/activate(id=${item.id})}"><i class="far fa-check-circle"></i></a>
+                            </td>
                             <td><a th:href="@{/item/{id}/edit(id=${item.id})}"><i class="fas fa-edit"></i></a></td>
                             <td><a th:href="@{/item/{id}/delete(id=${item.id})}"><i class="far fa-trash-alt"></i></a></td>
                         </tr>

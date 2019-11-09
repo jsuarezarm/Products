@@ -2,9 +2,11 @@ package com.example.products.service;
 
 import com.example.products.converter.Converter;
 import com.example.products.entity.Item;
+import com.example.products.entity.ItemDiscontinued;
 import com.example.products.entity.User;
 import com.example.products.model.MItem;
 import com.example.products.repository.RItem;
+import com.example.products.repository.RItemDiscontinued;
 import com.example.products.repository.RUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,6 +32,10 @@ public class SItem {
     @Autowired
     @Qualifier("RUser")
     private RUser rUser;
+
+    @Autowired
+    @Qualifier("RItemDiscontinued")
+    private RItemDiscontinued rItemDiscontinued;
 
     public boolean create(Item item) {
         try {
@@ -86,6 +92,33 @@ public class SItem {
         try {
             Item item = rItem.findById(id);
             item.setState(false);
+            rItem.save(item);
+
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username;
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails)principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+
+            ItemDiscontinued itemDiscontinued = new ItemDiscontinued();
+            itemDiscontinued.setItemId(id);
+            itemDiscontinued.setReason(deactivationReason);
+            itemDiscontinued.setUserId(rUser.findByUsername(username).getId());
+            itemDiscontinued.setDeactivationDate(new Date(Calendar.getInstance().getTime().getTime()));
+            rItemDiscontinued.save(itemDiscontinued);
+
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+    }
+
+    public boolean activate(int id) {
+        try {
+            Item item = rItem.findById(id);
+            item.setState(true);
             rItem.save(item);
             return true;
         } catch(Exception e) {

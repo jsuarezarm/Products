@@ -3,6 +3,7 @@ package com.example.products.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Calendar;
 
 @Table(name="item_discontinued")
 @Entity

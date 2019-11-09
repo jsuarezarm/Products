@@ -68,4 +68,8 @@ public class SUser implements UserDetailsService {
     public User getUser(int id) {
         return rUser.findById(id);
     }
+
+    public User getUser(String username) {
+        return rUser.findByUsername(username);
+    }
 }

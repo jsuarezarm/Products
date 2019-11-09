@@ -62,7 +62,9 @@ public class SItem {
     }
 
     public MItem getItem(int id) {
-        return converter.convertItem(rItem.findById(id));
+        Item i = rItem.findById(id);
+
+        return converter.convertItem(i);
     }
 
     public boolean edit(int id, Item editedItem) {

@@ -33,9 +33,10 @@ public class Item implements Serializable {
     @Column(name="creator")
     private int creator;
 
-    @OneToOne()
-    @JoinColumn(name="id", insertable = false, updatable = false)
-    private ItemDiscontinued itemDiscontinued;
+    @OneToMany
+    @OrderBy("deactivation_date desc")
+    @JoinColumn(name="item_id")
+    private Set<ItemDiscontinued> itemDiscontinued;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="item_supplier", joinColumns = {@JoinColumn(referencedColumnName ="id")},
@@ -54,7 +55,7 @@ public class Item implements Serializable {
     public Item(){}
 
     public Item(int id, int code, String description, BigDecimal price, boolean state, Date creationDate, int creator,
-                ItemDiscontinued itemDiscontinued, Set<Supplier> supplier, Set<PriceReduction> pricereduction, User user) {
+                Set<ItemDiscontinued> itemDiscontinued, Set<Supplier> supplier, Set<PriceReduction> pricereduction, User user) {
         this.id = id;
         this.code = code;
         this.description = description;
@@ -124,11 +125,11 @@ public class Item implements Serializable {
         this.creator = creator;
     }
 
-    public ItemDiscontinued getItemDiscontinued() {
+    public Set<ItemDiscontinued> getItemDiscontinued() {
         return itemDiscontinued;
     }
 
-    public void setItemDiscontinued(ItemDiscontinued itemDiscontinued) {
+    public void setItemDiscontinued(Set<ItemDiscontinued> itemDiscontinued) {
         this.itemDiscontinued = itemDiscontinued;
     }
 

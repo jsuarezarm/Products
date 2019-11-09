@@ -2,6 +2,7 @@ package com.example.products.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Table(name="item_discontinued")
 @Entity
@@ -21,21 +22,25 @@ public class ItemDiscontinued implements Serializable {
     @Column(name="reason")
     private String reason;
 
-    @OneToOne(targetEntity=Item.class, mappedBy="itemDiscontinued",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-    private Item item = new Item();
+    @Column(name="deactivation_date")
+    private Date deactivationDate;
 
-    @OneToOne()
+//    @OneToOne(targetEntity=Item.class, mappedBy="itemDiscontinued",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Item item = new Item();
+
+    @ManyToOne()
     @JoinColumn(name="user_id", insertable = false, updatable = false)
     private User user;
 
     public ItemDiscontinued() {}
 
-    public ItemDiscontinued(int id, int itemId, int userId, String reason, User user) {
+    public ItemDiscontinued(int id, int itemId, int userId, String reason, User user, Date deactivationDate) {
         this.id = id;
         this.itemId = itemId;
         this.userId = userId;
         this.reason = reason;
         this.user = user;
+        this.deactivationDate = deactivationDate;
     }
 
     public int getId() {
@@ -76,5 +81,13 @@ public class ItemDiscontinued implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Date getDeactivationDate() {
+        return deactivationDate;
+    }
+
+    public void setDeactivationDate(Date deactivationDate) {
+        this.deactivationDate = deactivationDate;
     }
 }

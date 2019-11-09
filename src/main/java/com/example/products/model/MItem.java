@@ -15,7 +15,7 @@ public class MItem {
     private boolean state;
     private Date creationDate;
     private int creator;
-    private ItemDiscontinued itemDiscontinued;
+    private Set<ItemDiscontinued> itemDiscontinued;
     private Set<Supplier> supplier;
     private Set<PriceReduction> pricereduction;
     private User user;
@@ -23,7 +23,7 @@ public class MItem {
     public MItem(){}
 
     public MItem(int id, int code, String description, BigDecimal price, boolean state, Date creationDate, int creator,
-                 ItemDiscontinued itemDiscontinued, Set<Supplier> supplier, Set<PriceReduction> pricereduction, User user) {
+                 Set<ItemDiscontinued> itemDiscontinued, Set<Supplier> supplier, Set<PriceReduction> pricereduction, User user) {
         this.id = id;
         this.code = code;
         this.description = description;
@@ -107,11 +107,11 @@ public class MItem {
         this.creator = creator;
     }
 
-    public ItemDiscontinued getItemDiscontinued() {
+    public Set<ItemDiscontinued> getItemDiscontinued() {
         return itemDiscontinued;
     }
 
-    public void setItemDiscontinued(ItemDiscontinued itemDiscontinued) {
+    public void setItemDiscontinued(Set<ItemDiscontinued> itemDiscontinued) {
         this.itemDiscontinued = itemDiscontinued;
     }
 

@@ -81,7 +81,7 @@
                             <td th:text="${item.user.username}" />
                             <td><a th:href="@{/item/{id}(id=${item.id})}"><i class="fas fa-info"></i></a></td>
                             <td><i class="fas fa-ban"></i></td>
-                            <td><i class="fas fa-edit"></i></td>
+                            <td><a th:href="@{/item/{id}/edit(id=${item.id})}"><i class="fas fa-edit"></i></a></td>
                             <td><a th:href="@{/item/{id}/delete(id=${item.id})}"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                         </tbody>

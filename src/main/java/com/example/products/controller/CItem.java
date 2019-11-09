@@ -74,6 +74,13 @@ public class CItem {
         return view;
     }
 
+    @GetMapping("/item/{id}/edit")
+    public ModelAndView editItem(@PathVariable("id") int id) {
+        ModelAndView view = new ModelAndView("item-edit");
+        view.addObject("product", getItem(id));
+        return view;
+    }
+
     @PostMapping("/item")
     public ModelAndView addItem(Item item) {
         sItem.create(item);

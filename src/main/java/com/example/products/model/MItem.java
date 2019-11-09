@@ -1,9 +1,6 @@
 package com.example.products.model;
 
-import com.example.products.entity.Item;
-import com.example.products.entity.ItemDiscontinued;
-import com.example.products.entity.PriceReduction;
-import com.example.products.entity.Supplier;
+import com.example.products.entity.*;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -21,11 +18,12 @@ public class MItem {
     private ItemDiscontinued itemDiscontinued;
     private Set<Supplier> supplier;
     private Set<PriceReduction> pricereduction;
+    private User user;
 
     public MItem(){}
 
     public MItem(int id, int code, String description, BigDecimal price, boolean state, Date creationDate, int creator,
-                 ItemDiscontinued itemDiscontinued, Set<Supplier> supplier, Set<PriceReduction> pricereduction) {
+                 ItemDiscontinued itemDiscontinued, Set<Supplier> supplier, Set<PriceReduction> pricereduction, User user) {
         this.id = id;
         this.code = code;
         this.description = description;
@@ -36,6 +34,7 @@ public class MItem {
         this.itemDiscontinued = itemDiscontinued;
         this.supplier = supplier;
         this.pricereduction = pricereduction;
+        this.user = user;
     }
 
     public MItem(Item item) {
@@ -49,6 +48,7 @@ public class MItem {
         this.itemDiscontinued = item.getItemDiscontinued();
         this.supplier = item.getSuppliers();
         this.pricereduction = item.getPriceReduction();
+        this.user = item.getUser();
     }
 
     public int getId() {
@@ -129,5 +129,13 @@ public class MItem {
 
     public void setPriceReduction(Set<PriceReduction> priceReduction) {
         this.pricereduction = priceReduction;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

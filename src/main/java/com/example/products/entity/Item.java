@@ -47,10 +47,14 @@ public class Item implements Serializable {
             inverseJoinColumns = {@JoinColumn(referencedColumnName = "id")})
     private Set<PriceReduction> pricereduction;
 
+    @ManyToOne
+    @JoinColumn(name="creator", insertable = false, updatable = false)
+    private User user;
+
     public Item(){}
 
     public Item(int id, int code, String description, BigDecimal price, boolean state, Date creationDate, int creator,
-                ItemDiscontinued itemDiscontinued, Set<Supplier> supplier, Set<PriceReduction> pricereduction) {
+                ItemDiscontinued itemDiscontinued, Set<Supplier> supplier, Set<PriceReduction> pricereduction, User user) {
         this.id = id;
         this.code = code;
         this.description = description;
@@ -61,6 +65,7 @@ public class Item implements Serializable {
         this.itemDiscontinued = itemDiscontinued;
         this.supplier = supplier;
         this.pricereduction = pricereduction;
+        this.user = user;
     }
 
     public int getId() {
@@ -141,5 +146,13 @@ public class Item implements Serializable {
 
     public void setPriceReduction(Set<PriceReduction> pricereduction) {
         this.pricereduction = pricereduction;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

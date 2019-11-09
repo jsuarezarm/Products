@@ -64,4 +64,8 @@ public class SUser implements UserDetailsService {
     public List<MUser> getUsers() {
         return converter.convertUsersList(rUser.findAll());
     }
+
+    public User getUser(int id) {
+        return rUser.findById(id);
+    }
 }

@@ -61,14 +61,14 @@ public class SItem {
         return converter.convertItemList(rItem.findAll());
     }
 
-    public MItem getItem(int code) {
-        return converter.convertItem(rItem.findByCode(code));
+    public MItem getItem(int id) {
+        return converter.convertItem(rItem.findById(id));
     }
 
-    public boolean edit(int code, Item editedItem) {
+    public boolean edit(int id, Item editedItem) {
         try {
             // Get item unmodified
-            Item item = rItem.findByCode(code);
+            Item item = rItem.findById(id);
 
             // Don't allow to change the item code
             editedItem.setCode(item.getCode());
@@ -80,9 +80,9 @@ public class SItem {
         }
     }
 
-    public boolean deactivate(int code, String deactivationReason) {
+    public boolean deactivate(int id, String deactivationReason) {
         try {
-            Item item = rItem.findByCode(code);
+            Item item = rItem.findById(id);
             item.setState(false);
             rItem.save(item);
             return true;
@@ -91,9 +91,9 @@ public class SItem {
         }
     }
 
-    public boolean delete(int code) {
+    public boolean delete(int id) {
         try {
-            Item item = rItem.findByCode(code);
+            Item item = rItem.findById(id);
             rItem.delete(item);
             return true;
         } catch(Exception e) {

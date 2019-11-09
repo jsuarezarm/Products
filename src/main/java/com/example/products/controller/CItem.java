@@ -3,18 +3,14 @@ package com.example.products.controller;
 import com.example.products.entity.Item;
 import com.example.products.model.MItem;
 import com.example.products.service.SItem;
+import com.example.products.service.SUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class CItem {
@@ -22,6 +18,10 @@ public class CItem {
     @Autowired
     @Qualifier("SItem")
     private SItem sItem;
+
+    @Autowired
+    @Qualifier("SUser")
+    private SUser sUser;
 
     // Add item
     @PostMapping("/api/item")
@@ -36,25 +36,25 @@ public class CItem {
     }
 
     // List item by code
-    @GetMapping("/api/item/{code}")
-    public MItem getItem(@PathVariable("code") int code) {
-        return sItem.getItem(code);
+    @GetMapping("/api/item/{id}")
+    public MItem getItem(@PathVariable("id") int id) {
+        return sItem.getItem(id);
     }
 
     // Edit item
-    @PostMapping("/api/item/{code}/edit")
-    public boolean edit(@PathVariable("code") int code, @RequestBody @Valid Item editedItem) {
-        return sItem.edit(code, editedItem);
+    @PostMapping("/api/item/{code}/id")
+    public boolean edit(@PathVariable("id") int id, @RequestBody @Valid Item editedItem) {
+        return sItem.edit(id, editedItem);
     }
 
-    @PostMapping("/api/item/{code}/deactivate")
-    public boolean deactivate(@PathVariable("code") int code, @RequestBody @Valid String deactivationReason) {
-        return sItem.deactivate(code, deactivationReason);
+    @PostMapping("/api/item/{id}/deactivate")
+    public boolean deactivate(@PathVariable("id") int id, @RequestBody @Valid String deactivationReason) {
+        return sItem.deactivate(id, deactivationReason);
     }
 
-    @DeleteMapping("/api/item/{code}")
-    public boolean delete(@PathVariable("code") int code) {
-        return sItem.delete(code);
+    @DeleteMapping("/api/item/{id}")
+    public boolean delete(@PathVariable("id") int id) {
+        return sItem.delete(id);
     }
 
 
@@ -64,6 +64,13 @@ public class CItem {
     public ModelAndView getItemListView() {
         ModelAndView view = new ModelAndView("item-list");
         view.addObject("products", getItems());
+        return view;
+    }
+
+    @GetMapping("/item/{id}")
+    public ModelAndView getItemDetail(@PathVariable("id") int id) {
+        ModelAndView view = new ModelAndView("item-detail");
+        view.addObject("product", getItem(id));
         return view;
     }
 

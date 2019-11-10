@@ -51,7 +51,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xl-2"></div>
+    <div class="col-xl-1"></div>
     <div class="col-xl-8">
         <div class="row">
             <h2>Basic information</h2>
@@ -161,7 +161,44 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-2"></div>
+    <div class="col-xl-3 border-left">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <h2 class="row justify-content-center">Add supplier</h2>
+                <form th:action="@{/item/{id}/supplier(id=${product.id})}" method="post" modelAttribute="itemSupplier">
+                    <div class="form-group">
+                        <label for="supplier">Supplier</label>
+                        <select class="form-control" id="supplier" name="supplierId">
+                            <option th:each="n : ${suppliers}" th:value="${n.id}" th:text="${n.name + ' (' + n.country + ')'}"/>
+                        </select>
+                    </div>
+                    <div class="row justify-content-center">
+                        <button type="submit" class="btn btn-primary">Add supplier</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-1"></div>
+        </div>
+        <div class="row border-top">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <h2 class="row justify-content-center">Add price reduction</h2>
+                <form th:action="@{/item/{id}/pricereduction(id=${product.id})}" method="post" modelAttribute="itemPricereduction">
+                    <div class="form-group">
+                        <label for="pricered">Price reduction</label>
+                        <select class="form-control" id="pricered" name="pricereductionId">
+                            <option th:each="n : ${pricereductions}" th:value="${n.id}" th:text="${n.priceReduction + ' (' + n.startDate + ' to ' + n.endDate +')'}"/>
+                        </select>
+                    </div>
+                    <div class="row justify-content-center">
+                        <button type="submit" class="btn btn-primary">Add price reduction</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
 </div>
 
 

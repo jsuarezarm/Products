@@ -2,9 +2,10 @@ package com.example.products.controller;
 
 import com.example.products.entity.Item;
 import com.example.products.entity.ItemDiscontinued;
+import com.example.products.entity.ItemPricereduction;
+import com.example.products.entity.ItemSupplier;
 import com.example.products.model.MItem;
-import com.example.products.service.SItem;
-import com.example.products.service.SUser;
+import com.example.products.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,22 @@ public class CItem {
     @Autowired
     @Qualifier("SUser")
     private SUser sUser;
+
+    @Autowired
+    @Qualifier("SSupplier")
+    private SSupplier sSupplier;
+
+    @Autowired
+    @Qualifier("SPriceReduction")
+    private SPriceReduction sPriceReduction;
+
+    @Autowired
+    @Qualifier("SItemSupplier")
+    private SItemSupplier sItemSupplier;
+
+    @Autowired
+    @Qualifier("SItemPricereduction")
+    private SItemPricereduction sItemPricereduction;
 
     // Add item
     @PostMapping("/api/item")
@@ -132,6 +149,8 @@ public class CItem {
     public ModelAndView editItem(@PathVariable("id") int id) {
         ModelAndView view = new ModelAndView("item-edit");
         view.addObject("product", getItem(id));
+        view.addObject("suppliers", sSupplier.getSuppliers());
+        view.addObject("pricereductions", sPriceReduction.getPriceReductions());
         return view;
     }
 
@@ -155,6 +174,24 @@ public class CItem {
     public RedirectView deleteItem(@PathVariable("id") int id) {
         sItem.delete(id);
         return new RedirectView("/item");
+    }
+
+    @PostMapping("/item/{id}/supplier")
+    public RedirectView addSupplier(@PathVariable("id") int id, ItemSupplier itemSupplier) {
+        ItemSupplier is = new ItemSupplier();
+        is.setItemId(id);
+        is.setSupplierId(itemSupplier.getSupplierId());
+        sItemSupplier.addSupplierToItem(is);
+        return new RedirectView("/item/" + id + "/edit");
+    }
+
+    @PostMapping("/item/{id}/pricereduction")
+    public RedirectView addPriceReduction(@PathVariable("id") int id, ItemPricereduction itemPricereduction) {
+        ItemPricereduction ipr = new ItemPricereduction();
+        ipr.setItemId(id);
+        ipr.setPricereductionId(itemPricereduction.getPricereductionId());
+        sItemPricereduction.addPriceReductionToItem(ipr);
+        return new RedirectView("/item/" + id + "/edit");
     }
 
 }

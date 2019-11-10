@@ -66,8 +66,23 @@ public class CItem {
 
     @GetMapping("/item")
     public ModelAndView getItemListView() {
+        List<MItem> ii =  getItems();
         ModelAndView view = new ModelAndView("item-list");
-        view.addObject("products", getItems());
+        view.addObject("products", ii);
+        return view;
+    }
+
+    @GetMapping("/item/showact")
+    public ModelAndView getItemListViewActive() {
+        ModelAndView view = new ModelAndView("item-list");
+        view.addObject("products", sItem.getActiveItems());
+        return view;
+    }
+
+    @GetMapping("/item/showdis")
+    public ModelAndView getItemListViewDiscontinued() {
+        ModelAndView view = new ModelAndView("item-list");
+        view.addObject("products", sItem.getDiscontinuedItems());
         return view;
     }
 
@@ -123,8 +138,9 @@ public class CItem {
     @PostMapping("/item")
     public ModelAndView addItem(Item item) {
         sItem.create(item);
+        List<MItem> ii = getItems();
         ModelAndView view = new ModelAndView("item-list");
-        view.addObject("products", getItems());
+        view.addObject("products", ii);
         return view;
     }
 

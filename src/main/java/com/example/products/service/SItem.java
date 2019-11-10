@@ -54,7 +54,8 @@ public class SItem {
                 username = principal.toString();
             }
             User user = rUser.findByUsername(username);
-            item.setCreator(user.getId());
+//            item.setCreator(user.getId());
+            item.setUser(user);
 
             rItem.save(item);
             return true;
@@ -65,6 +66,14 @@ public class SItem {
 
     public List<MItem> getItems() {
         return converter.convertItemList(rItem.findAll());
+    }
+
+    public List<MItem> getActiveItems() {
+        return converter.convertItemList(rItem.findByState(true));
+    }
+
+    public List<MItem> getDiscontinuedItems() {
+        return converter.convertItemList(rItem.findByState(false));
     }
 
     public MItem getItem(int id) {

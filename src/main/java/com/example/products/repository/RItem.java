@@ -12,5 +12,6 @@ public interface RItem extends JpaRepository<Item, Serializable> {
 
     public abstract Item findById(int id);
     public abstract List<Item> findByState(boolean state);
+    public abstract List<Item> findByCreator(int creatorId);
 
 }

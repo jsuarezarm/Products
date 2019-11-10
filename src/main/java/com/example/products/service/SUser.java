@@ -3,6 +3,7 @@ package com.example.products.service;
 import com.example.products.converter.Converter;
 import com.example.products.entity.User;
 import com.example.products.model.MUser;
+import com.example.products.repository.RItem;
 import com.example.products.repository.RRole;
 import com.example.products.repository.RUser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class SUser implements UserDetailsService {
     @Autowired
     @Qualifier("RRole")
     private RRole rRole;
+
+    @Autowired
+    @Qualifier("RItem")
+    private RItem rItem;
 
     @Autowired
     @Qualifier("converter")
@@ -67,19 +72,22 @@ public class SUser implements UserDetailsService {
 
     public boolean delete(int id) {
         try {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            String username;
-            if (principal instanceof UserDetails) {
-                username = ((UserDetails)principal).getUsername();
-            } else {
-                username = principal.toString();
-            }
-            User currentUser = rUser.findByUsername(username);
+            // If the user to delete has not items created
+            if(rItem.findByCreator(id).isEmpty()) {
+                Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                String username;
+                if (principal instanceof UserDetails) {
+                    username = ((UserDetails)principal).getUsername();
+                } else {
+                    username = principal.toString();
+                }
+                User currentUser = rUser.findByUsername(username);
 
-            User user = rUser.findById(id);
+                User user = rUser.findById(id);
 
-            if(currentUser.getId() != user.getId()) {
-                rUser.delete(user);
+                if(currentUser.getId() != user.getId()) {
+                    rUser.delete(user);
+                }
             }
             return true;
         } catch(Exception e) {

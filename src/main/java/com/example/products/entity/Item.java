@@ -38,12 +38,12 @@ public class Item implements Serializable {
     @JoinColumn(name="item_id")
     private Set<ItemDiscontinued> itemDiscontinued;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name="item_supplier", joinColumns = {@JoinColumn(referencedColumnName ="id")},
             inverseJoinColumns = {@JoinColumn(referencedColumnName = "id")})
     private Set<Supplier> supplier;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name="item_pricereduction", joinColumns = {@JoinColumn(referencedColumnName ="id")},
             inverseJoinColumns = {@JoinColumn(referencedColumnName = "id")})
     private Set<PriceReduction> pricereduction;

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -66,8 +67,20 @@ public class SUser implements UserDetailsService {
 
     public boolean delete(int id) {
         try {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            String username;
+            if (principal instanceof UserDetails) {
+                username = ((UserDetails)principal).getUsername();
+            } else {
+                username = principal.toString();
+            }
+            User currentUser = rUser.findByUsername(username);
+
             User user = rUser.findById(id);
-            rUser.delete(user);
+
+            if(currentUser.getId() != user.getId()) {
+                rUser.delete(user);
+            }
             return true;
         } catch(Exception e) {
             return false;

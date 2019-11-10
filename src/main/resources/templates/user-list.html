@@ -68,7 +68,7 @@
                     <tr  th:each="user: ${users}">
                         <td th:text="${user.username}" />
                         <td th:text="${user.role.role}" />
-                        <td><a th:href="@{/user/{id}/delete(id=${user.id})}"><i class="far fa-trash-alt"></i></a></td>
+                        <td><a th:if="${#authentication.getPrincipal().getUsername() != user.username}" th:href="@{/user/{id}/delete(id=${user.id})}"><i class="far fa-trash-alt"></i></a></td>
                     </tr>
                     </tbody>
                 </table>

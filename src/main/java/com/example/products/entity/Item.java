@@ -33,7 +33,7 @@ public class Item implements Serializable {
     @Column(name="creator")
     private int creator;
 
-    @OneToMany
+    @OneToMany(orphanRemoval=true, cascade = CascadeType.REMOVE)
     @OrderBy("deactivation_date desc")
     @JoinColumn(name="item_id")
     private Set<ItemDiscontinued> itemDiscontinued;

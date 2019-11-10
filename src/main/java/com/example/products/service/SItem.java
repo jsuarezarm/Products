@@ -86,11 +86,9 @@ public class SItem {
         try {
             // Get item unmodified
             Item item = rItem.findById(id);
-
-            // Don't allow to change the item code
-            editedItem.setCode(item.getCode());
-
-            rItem.save(editedItem);
+            item.setDescription(editedItem.getDescription());
+            item.setPrice(editedItem.getPrice());
+            rItem.save(item);
             return true;
         } catch(Exception e) {
             return false;

@@ -66,9 +66,9 @@ public class CItem {
 
     @GetMapping("/item")
     public ModelAndView getItemListView() {
-        List<MItem> ii =  getItems();
+        List<MItem> list =  getItems();
         ModelAndView view = new ModelAndView("item-list");
-        view.addObject("products", ii);
+        view.addObject("products", list);
         return view;
     }
 
@@ -135,12 +135,20 @@ public class CItem {
         return view;
     }
 
+    @PostMapping("/item/{id}/edit")
+    public RedirectView editItem(@PathVariable("id") int id, Item item) {
+        sItem.edit(id, item);
+        ModelAndView view = new ModelAndView("item-edit");
+        view.addObject("product", getItem(id));
+        return new RedirectView("/item/" + id);
+    }
+
     @PostMapping("/item")
     public ModelAndView addItem(Item item) {
         sItem.create(item);
-        List<MItem> ii = getItems();
+        List<MItem> list = getItems();
         ModelAndView view = new ModelAndView("item-list");
-        view.addObject("products", ii);
+        view.addObject("products", list);
         return view;
     }
 

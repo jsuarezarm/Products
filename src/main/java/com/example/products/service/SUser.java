@@ -3,6 +3,7 @@ package com.example.products.service;
 import com.example.products.converter.Converter;
 import com.example.products.entity.User;
 import com.example.products.model.MUser;
+import com.example.products.repository.RRole;
 import com.example.products.repository.RUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,6 +26,10 @@ public class SUser implements UserDetailsService {
     private RUser rUser;
 
     @Autowired
+    @Qualifier("RRole")
+    private RRole rRole;
+
+    @Autowired
     @Qualifier("converter")
     private Converter converter;
 
@@ -34,14 +39,14 @@ public class SUser implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = rUser.findByUsername(s);
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), createGrantedAuthorities());
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), createGrantedAuthorities(user.getRoleId()));
     }
 
-    protected List<GrantedAuthority> createGrantedAuthorities() {
-        String[] roles = {"USER"};
+    protected List<GrantedAuthority> createGrantedAuthorities(int roleId) {
+        String role = rRole.findById(roleId).getRole();
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(roles[0]));
+        authorities.add(new SimpleGrantedAuthority(role));
 
         return authorities;
     }

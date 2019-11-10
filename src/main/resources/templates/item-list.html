@@ -18,10 +18,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item active">
+            <li sec:authorize="isAuthenticated()" class="nav-item active">
                 <a class="nav-link" href="/item">Products</a>
             </li>
-            <li class="nav-item">
+            <li sec:authorize="isAuthenticated() && hasAuthority('ADMIN')" class="nav-item">
                 <a class="nav-link" href="/user">Users</a>
             </li>
         </ul>
@@ -76,7 +76,7 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-                            <th scope="col"></th>
+                            <th sec:authorize="hasAuthority('ADMIN')" scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -95,7 +95,7 @@
                                 <a th:href="@{/item/{id}/activate(id=${item.id})}"><i class="far fa-check-circle"></i></a>
                             </td>
                             <td><a th:href="@{/item/{id}/edit(id=${item.id})}"><i class="fas fa-edit"></i></a></td>
-                            <td><a th:href="@{/item/{id}/delete(id=${item.id})}"><i class="far fa-trash-alt"></i></a></td>
+                            <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/item/{id}/delete(id=${item.id})}"><i class="far fa-trash-alt"></i></a></td>
                         </tr>
                         </tbody>
                     </table>

@@ -9,4 +9,6 @@ import java.io.Serializable;
 @Repository("RRole")
 public interface RRole extends JpaRepository<Role, Serializable> {
 
+    public abstract Role findById(int id);
+
 }

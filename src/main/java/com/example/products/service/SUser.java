@@ -98,4 +98,21 @@ public class SUser implements UserDetailsService {
     public User getUser(String username) {
         return rUser.findByUsername(username);
     }
+
+    public List<MUser> getAdmins() {
+        return converter.convertUsersList(rUser.findByRoleId(rRole.findByRole("ADMIN").getId()));
+    }
+
+    public boolean createAdmin(User user) {
+        try {
+            User newUser = new User();
+            newUser.setUsername(user.getUsername());
+            newUser.setRoleId(rRole.findByRole("ADMIN").getId());
+            newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            rUser.save(newUser);
+            return true;
+        } catch(Exception e) {
+            return false;
+        }
+    }
 }

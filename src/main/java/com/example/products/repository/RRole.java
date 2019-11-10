@@ -10,5 +10,6 @@ import java.io.Serializable;
 public interface RRole extends JpaRepository<Role, Serializable> {
 
     public abstract Role findById(int id);
+    public abstract Role findByRole(String role);
 
 }

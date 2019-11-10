@@ -54,7 +54,7 @@ public class SItem {
                 username = principal.toString();
             }
             User user = rUser.findByUsername(username);
-//            item.setCreator(user.getId());
+            item.setCreator(user.getId());
             item.setUser(user);
 
             rItem.save(item);

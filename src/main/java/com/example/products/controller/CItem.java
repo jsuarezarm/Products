@@ -138,26 +138,23 @@ public class CItem {
     @PostMapping("/item/{id}/edit")
     public RedirectView editItem(@PathVariable("id") int id, Item item) {
         sItem.edit(id, item);
-        ModelAndView view = new ModelAndView("item-edit");
-        view.addObject("product", getItem(id));
         return new RedirectView("/item/" + id);
     }
 
     @PostMapping("/item")
-    public ModelAndView addItem(Item item) {
+    public RedirectView addItem(Item item) {
         sItem.create(item);
-        List<MItem> list = getItems();
-        ModelAndView view = new ModelAndView("item-list");
-        view.addObject("products", list);
-        return view;
+//        List<MItem> list = getItems();
+//        ModelAndView view = new ModelAndView("item-list");
+//        view.addObject("products", list);
+//        return view;
+        return new RedirectView("/item");
     }
 
-    @GetMapping("/item/{code}/delete")
-    public ModelAndView deleteItem(@PathVariable("code") int code) {
-        sItem.delete(code);
-        ModelAndView view = new ModelAndView("item-list");
-        view.addObject("products", getItems());
-        return view;
+    @GetMapping("/item/{id}/delete")
+    public RedirectView deleteItem(@PathVariable("id") int id) {
+        sItem.delete(id);
+        return new RedirectView("/item");
     }
 
 }

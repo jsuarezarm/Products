@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,10 +28,13 @@ public class SUser implements UserDetailsService {
     @Qualifier("converter")
     private Converter converter;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = rUser.findByUsername(s);
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), "{noop}"+user.getPassword(), createGrantedAuthorities());
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), createGrantedAuthorities());
     }
 
     protected List<GrantedAuthority> createGrantedAuthorities() {
@@ -44,7 +48,11 @@ public class SUser implements UserDetailsService {
 
     public boolean create(User user) {
         try {
-            rUser.save(user);
+            User newUser = new User();
+            newUser.setUsername(user.getUsername());
+            newUser.setRoleId(user.getRoleId());
+            newUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            rUser.save(newUser);
             return true;
         } catch(Exception e) {
             return false;

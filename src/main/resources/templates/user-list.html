@@ -3,6 +3,7 @@
 <head>
     <title>Products</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a24cc2985e.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -17,10 +18,10 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/item">Products</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/user">Users</a>
             </li>
         </ul>
@@ -43,14 +44,6 @@
 </nav>
 
 
-
-
-
-
-
-
-
-
 <!--<div class="container">-->
 <div class="row">
     <div class="col-xl-12">
@@ -68,12 +61,14 @@
                     <tr>
                         <th scope="col">Username</th>
                         <th scope="col">Role</th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr  th:each="user: ${users}">
                         <td th:text="${user.username}" />
-                        <td />
+                        <td th:text="${user.role.role}" />
+                        <td><a th:href="@{/user/{id}/delete(id=${user.id})}"><i class="far fa-trash-alt"></i></a></td>
                     </tr>
                     </tbody>
                 </table>
@@ -86,7 +81,7 @@
             <div class="col-2"></div>
             <div class="col-8">
                 <h2 class="row justify-content-center">Add user</h2>
-                <form th:action="@{/api/user}" method="post" modelAttribute="item">
+                <form th:action="@{/user}" method="post" modelAttribute="user">
                     <div class="form-group">
                         <label for="user-username">Username</label>
                         <input type="text" class="form-control" id="user-username" name="username" placeholder="Enter username">
@@ -94,6 +89,12 @@
                     <div class="form-group">
                         <label for="user-password">Password</label>
                         <input type="password" class="form-control" id="user-password" name="password" placeholder="Enter password">
+                    </div>
+                    <div class="form-group">
+                        <label for="user-role">Role</label>
+                        <select class="form-control" id="user-role" name="roleId">
+                            <option th:each="n : ${roles}" th:value="${n.id}" th:text="${n.role}"/>
+                        </select>
                     </div>
                     <div class="row justify-content-center">
                         <button type="submit" class="btn btn-primary">Add user</button>
@@ -105,12 +106,6 @@
     </div>
 </div>
 <!--</div>-->
-
-
-
-
-
-
 
 
 

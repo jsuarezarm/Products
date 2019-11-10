@@ -1,13 +1,7 @@
 package com.example.products.converter;
 
-import com.example.products.entity.Item;
-import com.example.products.entity.PriceReduction;
-import com.example.products.entity.Supplier;
-import com.example.products.entity.User;
-import com.example.products.model.MItem;
-import com.example.products.model.MPriceReduction;
-import com.example.products.model.MSupplier;
-import com.example.products.model.MUser;
+import com.example.products.entity.*;
+import com.example.products.model.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -58,6 +52,16 @@ public class Converter {
         }
 
         return mPriceReductions;
+    }
+
+    public List<MRole> convertRolesList(List<Role> roles) {
+        List<MRole> mRoles = new ArrayList<>();
+
+        for(Role role : roles) {
+            mRoles.add(new MRole(role));
+        }
+
+        return mRoles;
     }
 
 }

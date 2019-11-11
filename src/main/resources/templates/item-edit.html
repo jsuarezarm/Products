@@ -53,7 +53,7 @@
 <div class="row">
     <div class="col-xl-1"></div>
     <div class="col-xl-8">
-        <div class="row">
+        <div class="row mb-2">
             <h2>Basic information</h2>
             <div class="col-12">
 
@@ -96,7 +96,7 @@
 
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
             <h2>Traceability</h2>
             <table class="table" th:unless="${product.itemDiscontinued.isEmpty()}">
                 <thead>
@@ -118,7 +118,7 @@
                 <span>This product has never been deactivated.</span>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
             <h2>Suppliers</h2>
             <table class="table" th:unless="${product.suppliers.isEmpty()}">
                 <thead>
@@ -162,7 +162,7 @@
         </div>
     </div>
     <div class="col-xl-3 border-left">
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-1"></div>
             <div class="col-10">
                 <h2 class="row justify-content-center">Add supplier</h2>
@@ -180,7 +180,7 @@
             </div>
             <div class="col-1"></div>
         </div>
-        <div class="row border-top">
+        <div class="row border-top pt-5">
             <div class="col-1"></div>
             <div class="col-10">
                 <h2 class="row justify-content-center">Add price reduction</h2>

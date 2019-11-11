@@ -1,10 +1,7 @@
 package com.example.products.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Table(name="supplier")
 @Entity
@@ -20,11 +17,6 @@ public class Supplier implements Serializable {
 
     @Column(name="country")
     private String country;
-
-////    @ManyToMany(targetEntity=Item.class, mappedBy="supplier",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-//    @ManyToMany(mappedBy = "supplier")
-//    @JsonManagedReference
-//    private Set<Item> item;
 
     public Supplier() {}
 

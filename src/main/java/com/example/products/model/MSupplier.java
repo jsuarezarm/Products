@@ -1,9 +1,6 @@
 package com.example.products.model;
 
-import com.example.products.entity.Item;
 import com.example.products.entity.Supplier;
-
-import java.util.Set;
 
 public class MSupplier {
 

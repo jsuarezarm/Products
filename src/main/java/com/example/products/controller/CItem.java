@@ -8,8 +8,6 @@ import com.example.products.model.MItem;
 import com.example.products.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -68,11 +66,6 @@ public class CItem {
         return sItem.edit(id, editedItem);
     }
 
-//    @PostMapping("/api/item/{id}/deactivate")
-//    public boolean deactivate(@PathVariable("id") int id, @RequestBody @Valid String deactivationReason) {
-//        return sItem.deactivate(id, deactivationReason);
-//    }
-
     @DeleteMapping("/api/item/{id}")
     public boolean delete(@PathVariable("id") int id) {
         return sItem.delete(id);
@@ -117,27 +110,11 @@ public class CItem {
         return view;
     }
 
-//    @PostMapping("/item/{id}/deactivate")
-//    public ModelAndView deactivate(@PathVariable("id") int id, ItemDiscontinued itemDiscontinued) {
-//        ModelAndView view = new ModelAndView("item-list");
-//        view.addObject("products", getItems());
-//        sItem.deactivate(id, itemDiscontinued.getReason());
-//        return view;
-//    }
-
     @PostMapping("/item/{id}/deactivate")
     public RedirectView deactivate(@PathVariable("id") int id, ItemDiscontinued itemDiscontinued) {
         sItem.deactivate(id, itemDiscontinued.getReason());
         return new RedirectView("/item");
     }
-
-//    @GetMapping("/item/{id}/activate")
-//    public ModelAndView activate(@PathVariable("id") int id) {
-//        ModelAndView view = new ModelAndView("item-list");
-//        view.addObject("products", getItems());
-//        sItem.activate(id);
-//        return view;
-//    }
 
     @GetMapping("/item/{id}/activate")
     public RedirectView activate(@PathVariable("id") int id) {
@@ -163,10 +140,6 @@ public class CItem {
     @PostMapping("/item")
     public RedirectView addItem(Item item) {
         sItem.create(item);
-//        List<MItem> list = getItems();
-//        ModelAndView view = new ModelAndView("item-list");
-//        view.addObject("products", list);
-//        return view;
         return new RedirectView("/item");
     }
 

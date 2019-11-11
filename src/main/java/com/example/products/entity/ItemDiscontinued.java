@@ -3,7 +3,6 @@ package com.example.products.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.Calendar;
 
 @Table(name="item_discontinued")
 @Entity
@@ -25,9 +24,6 @@ public class ItemDiscontinued implements Serializable {
 
     @Column(name="deactivation_date")
     private Date deactivationDate;
-
-//    @OneToOne(targetEntity=Item.class, mappedBy="itemDiscontinued",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Item item = new Item();
 
     @ManyToOne()
     @JoinColumn(name="user_id", insertable = false, updatable = false)

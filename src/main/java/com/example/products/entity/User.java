@@ -25,9 +25,6 @@ public class User implements Serializable {
     @JoinColumn(name="role_id", insertable = false, updatable = false)
     private Role role;
 
-//    @OneToOne(targetEntity=ItemDiscontinued.class, mappedBy="user",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-//    private ItemDiscontinued itemDiscontinued = new ItemDiscontinued();
-
     public User() {}
 
     public User(int id, String username, String password, int roleId, Role role) {

@@ -17,10 +17,8 @@ public class Role implements Serializable {
     @Column(name="role")
     private String role;
 
-
     @OneToMany(targetEntity=User.class, mappedBy="role",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> user = new ArrayList<>();
-
 
     public Role() {}
 
